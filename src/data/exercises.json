@@ -1,0 +1,162 @@
+[
+  {
+    "id": "bench_press",
+    "name": "Жим лёжа",
+    "description": "Лёжа на скамье опусти штангу к груди и выжми вверх. Контролируй движение, не отбивай от груди.",
+    "muscles": ["грудь", "трицепс", "передние дельты"],
+    "image": "/images/exercises/bench_press.svg",
+    "requiredEquipment": ["barbell"]
+  },
+  {
+    "id": "squat",
+    "name": "Приседания со штангой",
+    "description": "Гриф на спине, стопы на ширине плеч. Опускайся до параллели бедра с полом, спина прямая.",
+    "muscles": ["квадрицепсы", "ягодицы", "кор"],
+    "image": "/images/exercises/squat.svg",
+    "requiredEquipment": ["barbell"]
+  },
+  {
+    "id": "deadlift",
+    "name": "Становая тяга",
+    "description": "Гриф на полу, хват на ширине плеч. Поднимай за счёт разгибания ног и спины одновременно.",
+    "muscles": ["спина", "ягодицы", "задняя поверхность бедра"],
+    "image": "/images/exercises/deadlift.svg",
+    "requiredEquipment": ["barbell"]
+  },
+  {
+    "id": "overhead_press",
+    "name": "Армейский жим",
+    "description": "Жим штанги/гантелей стоя над головой. Ягодицы напряжены, прогиб в пояснице минимален.",
+    "muscles": ["плечи", "трицепс", "кор"],
+    "image": "/images/exercises/overhead_press.svg",
+    "requiredEquipment": ["barbell"]
+  },
+  {
+    "id": "pull_ups",
+    "name": "Подтягивания",
+    "description": "Хват чуть шире плеч. Поднимайся за счёт сведения лопаток, подбородок выше перекладины.",
+    "muscles": ["спина", "бицепс"],
+    "image": "/images/exercises/pull_ups.svg",
+    "requiredEquipment": ["pull_up_bar"]
+  },
+  {
+    "id": "barbell_row",
+    "name": "Тяга штанги в наклоне",
+    "description": "Наклон корпуса ~45°, тяни гриф к низу живота, сводя лопатки.",
+    "muscles": ["спина", "задние дельты", "бицепс"],
+    "image": "/images/exercises/barbell_row.svg",
+    "requiredEquipment": ["barbell"]
+  },
+  {
+    "id": "dumbbell_curl",
+    "name": "Подъём гантелей на бицепс",
+    "description": "Стоя, подъём гантелей с супинацией. Локти прижаты, без раскачки корпусом.",
+    "muscles": ["бицепс"],
+    "image": "/images/exercises/dumbbell_curl.svg",
+    "requiredEquipment": ["dumbbells"]
+  },
+  {
+    "id": "dumbbell_row",
+    "name": "Тяга гантели в наклоне",
+    "description": "Одной рукой и коленом опирайся на скамью, тянем гантель к поясу.",
+    "muscles": ["спина", "бицепс"],
+    "image": "/images/exercises/dumbbell_row.svg",
+    "requiredEquipment": ["dumbbells"]
+  },
+  {
+    "id": "goblet_squat",
+    "name": "Гоблет-присед с гантелью",
+    "description": "Гантель у груди, приседаем с прямой спиной. Отлично для дома и новичков.",
+    "muscles": ["квадрицепсы", "ягодицы", "кор"],
+    "image": "/images/exercises/goblet_squat.svg",
+    "requiredEquipment": ["dumbbells"]
+  },
+  {
+    "id": "dumbbell_press_floor",
+    "name": "Жим гантелей лёжа на полу",
+    "description": "Лёжа на полу, жим гантелей вверх. Подходит для домашних тренировок без скамьи.",
+    "muscles": ["грудь", "трицепс"],
+    "image": "/images/exercises/dumbbell_press_floor.svg",
+    "requiredEquipment": ["dumbbells"]
+  },
+  {
+    "id": "lateral_raise",
+    "name": "Разведения гантелей в стороны",
+    "description": "Подъём гантелей через стороны до уровня плеч. Без рывков.",
+    "muscles": ["средние дельты"],
+    "image": "/images/exercises/lateral_raise.svg",
+    "requiredEquipment": ["dumbbells"]
+  },
+  {
+    "id": "lunges",
+    "name": "Выпады",
+    "description": "Шаг вперёд и опускание таза. Можно с гантелями или со своим весом.",
+    "muscles": ["квадрицепсы", "ягодицы"],
+    "image": "/images/exercises/lunges.svg",
+    "requiredEquipment": ["dumbbells", "none"]
+  },
+  {
+    "id": "plank",
+    "name": "Планка",
+    "description": "Упор на предплечья, тело в прямой линии. Напряги пресс и ягодицы.",
+    "muscles": ["кор"],
+    "image": "/images/exercises/plank.svg",
+    "requiredEquipment": ["none"]
+  },
+  {
+    "id": "push_ups",
+    "name": "Отжимания",
+    "description": "Руки чуть шире плеч, опускай грудь к полу, корпус прямой.",
+    "muscles": ["грудь", "трицепс", "кор"],
+    "image": "/images/exercises/push_ups.svg",
+    "requiredEquipment": ["none"]
+  },
+  {
+    "id": "bodyweight_squat",
+    "name": "Приседания со своим весом",
+    "description": "Присед без отягощения, спина прямая, колени по направлению стоп.",
+    "muscles": ["квадрицепсы", "ягодицы"],
+    "image": "/images/exercises/bodyweight_squat.svg",
+    "requiredEquipment": ["none"]
+  },
+  {
+    "id": "band_rows",
+    "name": "Тяга эспандера/резинки сидя",
+    "description": "Сидя, резинка вокруг стоп, тянем к поясу, сводя лопатки.",
+    "muscles": ["спина", "бицепс"],
+    "image": "/images/exercises/band_rows.svg",
+    "requiredEquipment": ["resistance_bands"]
+  },
+  {
+    "id": "band_chest_press",
+    "name": "Жим резинки от груди",
+    "description": "Резинка за спиной, выжимаем руки вперёд. Хорошая альтернатива жиму дома.",
+    "muscles": ["грудь", "трицепс"],
+    "image": "/images/exercises/band_chest_press.svg",
+    "requiredEquipment": ["resistance_bands"]
+  },
+  {
+    "id": "glute_bridge",
+    "name": "Ягодичный мостик",
+    "description": "Лёжа на спине, подъём таза за счёт ягодиц. Можно с гантелью на бёдрах.",
+    "muscles": ["ягодицы", "задняя поверхность бедра"],
+    "image": "/images/exercises/glute_bridge.svg",
+    "requiredEquipment": ["dumbbells", "none"]
+  },
+  {
+    "id": "romanian_deadlift",
+    "name": "Румынская тяга",
+    "description": "Наклон со штангой/гантелями на чуть согнутых ногах, растягиваем заднюю поверхность бедра.",
+    "muscles": ["задняя поверхность бедра", "ягодицы", "спина"],
+    "image": "/images/exercises/romanian_deadlift.svg",
+    "requiredEquipment": ["barbell", "dumbbells"]
+  },
+  {
+    "id": "tricep_extension_band",
+    "name": "Разгибания на трицепс с резинкой",
+    "description": "Резинка сверху, разгибаем руки в локтях, локти прижаты.",
+    "muscles": ["трицепс"],
+    "image": "/images/exercises/tricep_extension_band.svg",
+    "requiredEquipment": ["resistance_bands"]
+  }
+]

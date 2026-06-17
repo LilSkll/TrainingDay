@@ -1,0 +1,144 @@
+/**
+ * Экран «Программа».
+ *  Показывает текущую сгенерированную программу с разбивкой по дням,
+ *  подтягивает изображения упражнений из библиотеки.
+ *  Кнопки экспорта: TXT и PDF.
+ */
+import {
+  Alert,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Chip,
+  CircularProgress,
+  Divider,
+  Grid,
+  Stack,
+  Typography,
+} from '@mui/material';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import DescriptionIcon from '@mui/icons-material/Description';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import Link from 'next/link';
+import PageHeader, { HeaderButton } from '@/components/common/PageHeader';
+import PageShell from '@/components/layout/PageShell';
+import ExerciseCard from '@/components/program/ExerciseCard';
+import { useCurrentProgram } from '@/hooks/useStorage';
+import { downloadPdf, downloadTxt } from '@/lib/export/programExport';
+
+export default function ProgramPage() {
+  const { program } = useCurrentProgram();
+
+  // Нет программы — зовём заполнить анкету.
+  if (!program) {
+    return (
+      <PageShell>
+        <Card>
+          <CardContent sx={{ textAlign: 'center', py: 6 }}>
+            <AutoAwesomeIcon sx={{ fontSize: 48, color: 'text.disabled' }} />
+            <Typography variant="h6" sx={{ mt: 2 }}>
+              Здесь появится ваша программа
+            </Typography>
+            <Typography color="text.secondary" sx={{ mb: 3 }}>
+              Сначала заполните анкету — AI составит персональный план тренировок.
+            </Typography>
+            <Link href="/survey" passHref legacyBehavior>
+              <Button component="a" variant="contained" size="large">
+                Заполнить анкету
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
+      </PageShell>
+    );
+  }
+
+  return (
+    <PageShell maxWidth="lg">
+      <PageHeader
+        title={program.title}
+        subtitle={program.summary}
+        action={
+          <Stack direction="row" spacing={1}>
+            <Button
+              variant="outlined"
+              startIcon={<DescriptionIcon />}
+              onClick={() => downloadTxt(program)}
+            >
+              TXT
+            </Button>
+            <Button
+              variant="outlined"
+              startIcon={<PictureAsPdfIcon />}
+              onClick={() => downloadPdf(program)}
+            >
+              PDF
+            </Button>
+          </Stack>
+        }
+      />
+
+      {/* Мета-чипы */}
+      <Stack direction="row" spacing={1} sx={{ mb: 3, flexWrap: 'wrap' }} useFlexGap>
+        <Chip
+          label={`Тренировок/нед: ${program.profileSnapshot.workoutsPerWeek}`}
+          color="primary"
+          variant="outlined"
+        />
+        <Chip
+          label={`Цель: ${program.profileSnapshot.goal}`}
+          variant="outlined"
+        />
+        <Chip
+          label={`Уровень: ${program.profileSnapshot.experience}`}
+          variant="outlined"
+        />
+        <Chip label={`Дней в плане: ${program.days.length}`} variant="outlined" />
+        <Chip
+          label={`Источник: ${program.provider}`}
+          variant="outlined"
+          color={program.provider === 'mock' ? 'warning' : 'success'}
+        />
+      </Stack>
+
+      <Grid container spacing={3}>
+        {program.days.map((day) => (
+          <Grid item xs={12} key={`day-${day.day}`}>
+            <Box>
+              <Typography variant="h6" fontWeight={800} sx={{ mb: 1.5 }}>
+                День {day.day}. {day.title}
+                {day.focus && (
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ ml: 1.5 }}
+                  >
+                    · {day.focus}
+                  </Typography>
+                )}
+              </Typography>
+              <Stack spacing={2}>
+                {day.exercises.map((ex, i) => (
+                  <ExerciseCard key={`${day.day}-${i}`} entry={ex} index={i} />
+                ))}
+              </Stack>
+            </Box>
+          </Grid>
+        ))}
+      </Grid>
+
+      <Divider sx={{ my: 4 }} />
+
+      <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+        <Link href="/survey" passHref legacyBehavior>
+          <Button variant="contained">Сгенерировать заново</Button>
+        </Link>
+        <Link href="/analysis" passHref legacyBehavior>
+          <Button variant="outlined">Проанализировать тренировку</Button>
+        </Link>
+      </Box>
+    </PageShell>
+  );
+}
