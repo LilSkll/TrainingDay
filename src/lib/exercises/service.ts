@@ -20,6 +20,11 @@ export const EXERCISES: Exercise[] = (rawData as Exercise[]).map((e) => ({
   requiredEquipment: Array.isArray(e.requiredEquipment)
     ? (e.requiredEquipment as Exercise['requiredEquipment'])
     : [],
+  // Новые опциональные поля. Если их нет в JSON — undefined, UI покажет
+  // общее описание вместо пошаговой техники.
+  techniqueSteps: Array.isArray(e.techniqueSteps) ? e.techniqueSteps.map(String) : undefined,
+  commonMistakes: Array.isArray(e.commonMistakes) ? e.commonMistakes.map(String) : undefined,
+  youtubeQuery: typeof e.youtubeQuery === 'string' ? e.youtubeQuery : undefined,
 }));
 
 /** Быстрый доступ по id — O(1). */

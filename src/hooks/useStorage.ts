@@ -157,3 +157,38 @@ export function useChat() {
   );
   return { messages, saveMessages: save };
 }
+
+/* --------------------------- Избранное ---------------------------- */
+export function useFavorites() {
+  const { repo, version, refresh } = useRepository();
+  const favorites = useStored(() => repo.getFavorites(), version);
+
+  /** Перезаписать весь список избранного. */
+  const saveFavorites = useCallback(
+    (ids: string[]) => {
+      repo.saveFavorites(ids);
+      refresh();
+    },
+    [repo, refresh],
+  );
+
+  /** Переключить упражнение в/из избранного. Возвращает новое состояние. */
+  const toggleFavorite = useCallback(
+    (id: string): boolean => {
+      const current = repo.getFavorites();
+      const isFav = current.includes(id);
+      const next = isFav ? current.filter((x) => x !== id) : [...current, id];
+      repo.saveFavorites(next);
+      refresh();
+      return !isFav; // новое состояние: добавили → true
+    },
+    [repo, refresh],
+  );
+
+  const isFavorite = useCallback(
+    (id: string) => favorites.includes(id),
+    [favorites],
+  );
+
+  return { favorites, saveFavorites, toggleFavorite, isFavorite };
+}

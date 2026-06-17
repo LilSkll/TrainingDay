@@ -64,6 +64,10 @@ export interface DataRepository {
   getChat(): ChatMessage[];
   saveChat(messages: ChatMessage[]): void;
 
+  /* Избранное: массив ID упражнений */
+  getFavorites(): string[];
+  saveFavorites(ids: string[]): void;
+
   /* Полный сброс */
   resetAll(): void;
 }
@@ -177,6 +181,14 @@ export class LocalStorageRepository implements DataRepository {
   }
   saveChat(messages: ChatMessage[]): void {
     write(STORAGE_KEYS.chat, messages);
+  }
+
+  /* --- Избранное --- */
+  getFavorites(): string[] {
+    return read<string[]>(STORAGE_KEYS.favorites, []);
+  }
+  saveFavorites(ids: string[]): void {
+    write(STORAGE_KEYS.favorites, ids);
   }
 
   /* --- Сброс --- */

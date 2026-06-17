@@ -23,6 +23,7 @@ export const STORAGE_KEYS = {
   bodyWeight: 'afc:bodyWeight',
   exerciseProgress: 'afc:exerciseProgress',
   chat: 'afc:chat',
+  favorites: 'afc:favorites',
   theme: 'afc:theme',
 } as const;
 

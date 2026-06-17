@@ -158,4 +158,10 @@ export interface Exercise {
   image: string;
   /** Какие типы оборудования требуются — для фильтрации под анкету. */
   requiredEquipment: Equipment[];
+  /** Пошаговая техника выполнения (опционально — не у всех упражнений). */
+  techniqueSteps?: string[];
+  /** Частые ошибки (опционально). */
+  commonMistakes?: string[];
+  /** Запрос для поиска видео на YouTube (опционально; иначе берётся из name). */
+  youtubeQuery?: string;
 }

@@ -1,8 +1,13 @@
 #!/usr/bin/env node
 /**
- * Генератор SVG-плейсхолдеров для упражнений (v2).
- *  Категоризация по мышцам → разная поза + иконка оборудования.
- *  Перегенерирует ВСЕ изображения в /public/images/exercises/.
+ * Генератор АНИМИРОВАННЫХ SVG-демонстраций упражнений (v3, SMIL).
+ *
+ *  Анимация — настоящая, зацикленная (SMIL <animateTransform>), по категории
+ *  движения: присед — вертикаль, жим — горизонталь, тяга — диагональ и т.д.
+ *  Размер ~2-4 КБ на SVG (в 10× меньше GIF), масштабируется без потерь,
+ *  работает в светлой/тёмной теме, ноль внешних зависимостей.
+ *
+ *  Реальные фото/GIF можно положить позже, заменив файлы тем же именем.
  */
 const fs = require('fs');
 const path = require('path');
@@ -29,26 +34,90 @@ function category(ex) {
   return 'core';
 }
 
-function figure(cat, ink, ink2) {
+/**
+ * Анимированная фигура. Вся «подвижная» часть обёрнута в <g> с уникальным id,
+ *  к которому привязан <animateTransform> (translate/scale/rotate).
+ *  dur — длительность цикла, repeatCount=indefinite → зациклено.
+ */
+function figure(cat, ink, ink2, uid) {
   const head = `<circle cx="200" cy="85" r="20" fill="${ink}"/>`;
   const torso = `<path d="M200 108 L200 185" stroke="${ink2}" stroke-width="14" stroke-linecap="round"/>`;
+
+  // хелпер: обернуть группу с анимацией трансформации
+  const anim = (inner, type, values, dur = '1.6s') =>
+    `<g><animateTransform attributeName="transform" type="${type}" values="${values}" dur="${dur}" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>${inner}</g>`;
+
   switch (cat) {
-    case 'chest': return head + torso +
-      `<path d="M200 130 L150 150 M200 130 L250 150 M200 185 L165 245 M200 185 L235 245" stroke="${ink2}" stroke-width="12" stroke-linecap="round" fill="none"/>`;
-    case 'back': return head + torso +
-      `<path d="M200 115 L150 95 M200 115 L250 95 M200 185 L170 250 M200 185 L230 250" stroke="${ink2}" stroke-width="12" stroke-linecap="round" fill="none"/>`;
-    case 'shoulders': return head + torso +
-      `<path d="M200 125 L135 125 M200 125 L265 125 M200 185 L170 250 M200 185 L230 250" stroke="${ink2}" stroke-width="12" stroke-linecap="round" fill="none"/>`;
-    case 'arms': return head + torso +
-      `<path d="M200 128 L160 150 Q150 160 165 165 M200 128 L240 150 Q250 160 235 165 M200 185 L170 250 M200 185 L230 250" stroke="${ink2}" stroke-width="12" stroke-linecap="round" fill="none"/>`;
-    case 'core': return head +
-      `<path d="M150 130 L250 130" stroke="${ink2}" stroke-width="14" stroke-linecap="round"/>` +
-      `<path d="M200 100 L200 165" stroke="${ink2}" stroke-width="14" stroke-linecap="round"/>` +
-      `<path d="M200 165 L165 250 M200 165 L235 250" stroke="${ink2}" stroke-width="12" stroke-linecap="round" fill="none"/>`;
-    case 'cardio': return head + torso +
-      `<path d="M200 130 L155 140 M200 130 L255 145 M200 185 L160 235 L150 250 M200 185 L245 230 L260 240" stroke="${ink2}" stroke-width="12" stroke-linecap="round" fill="none"/>`;
-    case 'legs': default: return head + torso +
-      `<path d="M200 130 L155 155 M200 130 L245 155 M200 185 L150 250 M200 185 L250 250" stroke="${ink2}" stroke-width="12" stroke-linecap="round" fill="none"/>`;
+    case 'chest':
+      // жим: руки из согнутых в выпрямленные (translate по X к центру/наружу)
+      return head + torso +
+        anim(
+          `<path d="M200 130 L150 150 M200 130 L250 150 M200 185 L165 245 M200 185 L235 245" stroke="${ink2}" stroke-width="12" stroke-linecap="round" fill="none"/>`,
+          'translate',
+          '0 0; 0 -18; 0 0'
+        );
+    case 'back':
+      // подтягивание/тяга: корпус движется вверх-вниз
+      return anim(
+        head +
+        `<path d="M200 108 L200 185" stroke="${ink2}" stroke-width="14" stroke-linecap="round"/>` +
+        `<path d="M200 115 L150 95 M200 115 L250 95 M200 185 L170 250 M200 185 L230 250" stroke="${ink2}" stroke-width="12" stroke-linecap="round" fill="none"/>`,
+        'translate',
+        '0 12; 0 -8; 0 12'
+      );
+    case 'shoulders':
+      // разведения: руки поднимаются-опускаются
+      return head + torso +
+        anim(
+          `<path d="M200 125 L135 125 M200 125 L265 125 M200 185 L170 250 M200 185 L230 250" stroke="${ink2}" stroke-width="12" stroke-linecap="round" fill="none"/>`,
+          'rotate',
+          '0 200 125; 6 200 125; 0 200 125'
+        );
+    case 'arms':
+      // бицепс: предплечья сгибаются-разгибаются (scale по Y)
+      return head + torso +
+        anim(
+          `<path d="M200 128 L160 150 Q150 160 165 165 M200 128 L240 150 Q250 160 235 165" stroke="${ink2}" stroke-width="12" stroke-linecap="round" fill="none"/>`,
+          'translate',
+          '0 0; 0 -10; 0 0'
+        ) +
+        `<path d="M200 185 L170 250 M200 185 L230 250" stroke="${ink2}" stroke-width="12" stroke-linecap="round" fill="none"/>`;
+    case 'core':
+      // планка: лёгкое покачивание кора
+      return anim(
+        head +
+        `<path d="M150 130 L250 130" stroke="${ink2}" stroke-width="14" stroke-linecap="round"/>` +
+        `<path d="M200 100 L200 165" stroke="${ink2}" stroke-width="14" stroke-linecap="round"/>` +
+        `<path d="M200 165 L165 250 M200 165 L235 250" stroke="${ink2}" stroke-width="12" stroke-linecap="round" fill="none"/>`,
+        'translate',
+        '0 0; 0 -4; 0 0'
+      );
+    case 'cardio':
+      // бег: ноги в движении (rotate бёдер)
+      return head + torso +
+        `<path d="M200 130 L155 140 M200 130 L255 145" stroke="${ink2}" stroke-width="12" stroke-linecap="round" fill="none"/>` +
+        anim(
+          `<path d="M200 185 L160 235 L150 250" stroke="${ink2}" stroke-width="12" stroke-linecap="round" fill="none"/>`,
+          'rotate',
+          '0 200 185; 15 200 185; 0 200 185',
+          '0.8s'
+        ) +
+        anim(
+          `<path d="M200 185 L245 230 L260 240" stroke="${ink2}" stroke-width="12" stroke-linecap="round" fill="none"/>`,
+          'rotate',
+          '0 200 185; -15 200 185; 0 200 185',
+          '0.8s'
+        );
+    case 'legs':
+    default:
+      // присед: корпус опускается-поднимается (translate по Y)
+      return anim(
+        head +
+        `<path d="M200 108 L200 185" stroke="${ink2}" stroke-width="14" stroke-linecap="round"/>` +
+        `<path d="M200 130 L155 155 M200 130 L245 155 M200 185 L150 250 M200 185 L250 250" stroke="${ink2}" stroke-width="12" stroke-linecap="round" fill="none"/>`,
+        'translate',
+        '0 0; 0 22; 0 0'
+      );
   }
 }
 
@@ -67,15 +136,16 @@ function escapeXml(s) {
 
 function renderSvg(ex) {
   const cat = category(ex);
+  const uid = ex.id.replace(/[^a-z0-9]/gi, '');
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300" role="img" aria-label="${escapeXml(ex.name)}">
   <defs>
-    <linearGradient id="bg-${ex.id}" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="bg-${uid}" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="${C.bg1}"/>
       <stop offset="1" stop-color="${C.bg2}"/>
     </linearGradient>
   </defs>
-  <rect width="400" height="300" fill="url(#bg-${ex.id})"/>
-  <g opacity="0.9">${figure(cat, C.ink, C.ink2)}</g>
+  <rect width="400" height="300" fill="url(#bg-${uid})"/>
+  <g opacity="0.92">${figure(cat, C.ink, C.ink2, uid)}</g>
   ${equipmentIcon(ex, C.ink)}
   <text x="20" y="282" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="${C.text}">${escapeXml(ex.name)}</text>
   <text x="380" y="282" text-anchor="end" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="${C.ink}" opacity="0.7">${cat.toUpperCase()}</text>
@@ -87,4 +157,4 @@ for (const ex of json) {
   fs.writeFileSync(path.join(OUT_DIR, `${ex.id}.svg`), renderSvg(ex), 'utf8');
   count++;
 }
-console.log(`Generated ${count} exercise SVGs (v2 style)`);
+console.log(`Generated ${count} animated exercise SVGs (v3 SMIL)`);
