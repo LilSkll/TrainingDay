@@ -1,7 +1,11 @@
 /**
  * Удобные React-хуки над репозиторием.
- *  Читают данные из LocalStorage, дают сеттеры, и при изменении форсируют
- *  перерисовку компонента (через локальный счетчик версий).
+ *
+ *  ВАЖНО (баг, который тут исправлён): данные из LocalStorage нельзя читать
+ *  прямо в теле компонента на каждом рендере — JSON.parse каждый раз возвращает
+ *  НОВЫЙ объект-ссылку, и любой useEffect от такого значения зацикливается,
+ *  затирая пользовательский ввод. Поэтому читаем ОДИН раз в useState и
+ *  обновляем только при изменении версии хранилища.
  *
  *  Завтра, при подключении Supabase/Postgres, эти хуки можно будет
  *  переписать на SWR/React-Query без правки экранов — API идентичен.
@@ -17,24 +21,49 @@ import type {
   WorkoutAnalysis,
 } from '@/lib/types';
 
-/** Простой сторадж-биндинг: подписка на изменение + ручной bump версии. */
+/**
+ * Базовый сторадж-биндинг:
+ *  - стартовая версия 0, монтируемся в useEffect -> bump до 1 (на клиенте),
+ *    чтобы избежать SSR/CSR-расхождений (hydration mismatch);
+ *  - подписываемся на межвкладочные storage-события.
+ *
+ *  Возвращает `version` — её используют потребители как ключ для useState.
+ */
 function useRepository() {
   const repo = getRepository();
-  const [version, bump] = useState(0);
-  const refresh = useCallback(() => bump((v) => v + 1), []);
-  // Подписываемся на storage-события между вкладками.
+  const [version, setVersion] = useState(0);
+
+  const refresh = useCallback(() => setVersion((v) => v + 1), []);
+
   useEffect(() => {
-    const handler = () => bump((v) => v + 1);
+    // На клиенте один раз форсируем чтение актуальных данных.
+    setVersion((v) => v + 1);
+    const handler = () => setVersion((v) => v + 1);
     window.addEventListener('storage', handler);
     return () => window.removeEventListener('storage', handler);
   }, []);
+
   return { repo, version, refresh };
+}
+
+/**
+ * Универсальный читатель: кладёт значение из репозитория в state и
+ * обновляет его ТОЛЬКО при смене version (а не при каждом рендере).
+ * Благодаря этому ссылка стабильна между записями в хранилище.
+ */
+function useStored<T>(read: () => T, version: number) {
+  const [value, setValue] = useState<T>(read);
+  useEffect(() => {
+    setValue(read());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [version]);
+  return value;
 }
 
 /* ----------------------------- Анкета ----------------------------- */
 export function useProfile() {
   const { repo, version, refresh } = useRepository();
-  const profile = repo.getProfile();
+  const profile = useStored(() => repo.getProfile(), version);
   const save = useCallback(
     (p: UserProfile) => {
       repo.saveProfile({ ...p, updatedAt: new Date().toISOString() });
@@ -42,13 +71,13 @@ export function useProfile() {
     },
     [repo, refresh],
   );
-  return { profile, saveProfile: save, version };
+  return { profile, saveProfile: save };
 }
 
 /* --------------------------- Программы ---------------------------- */
 export function useCurrentProgram() {
   const { repo, version, refresh } = useRepository();
-  const program = repo.getCurrentProgram();
+  const program = useStored(() => repo.getCurrentProgram(), version);
   const set = useCallback(
     (p: TrainingProgram | null) => {
       repo.setCurrentProgram(p);
@@ -57,11 +86,12 @@ export function useCurrentProgram() {
     },
     [repo, refresh],
   );
-  return { program, setProgram: set, version };
+  return { program, setProgram: set };
 }
 
 export function usePrograms() {
   const { repo, version, refresh } = useRepository();
+  const programs = useStored(() => repo.listPrograms(), version);
   const remove = useCallback(
     (id: string) => {
       repo.deleteProgram(id);
@@ -69,12 +99,13 @@ export function usePrograms() {
     },
     [repo, refresh],
   );
-  return { programs: repo.listPrograms(), deleteProgram: remove, version };
+  return { programs, deleteProgram: remove };
 }
 
 /* ---------------------------- Анализы ----------------------------- */
 export function useAnalyses() {
   const { repo, version, refresh } = useRepository();
+  const analyses = useStored(() => repo.listAnalyses(), version);
   const add = useCallback(
     (a: WorkoutAnalysis) => {
       repo.saveAnalysis(a);
@@ -82,12 +113,13 @@ export function useAnalyses() {
     },
     [repo, refresh],
   );
-  return { analyses: repo.listAnalyses(), addAnalysis: add, version };
+  return { analyses, addAnalysis: add };
 }
 
 /* ----------------------- Прогресс: вес тела ----------------------- */
 export function useBodyWeight() {
   const { repo, version, refresh } = useRepository();
+  const points = useStored(() => repo.getBodyWeight(), version);
   const add = useCallback(
     (p: BodyWeightPoint) => {
       repo.addBodyWeightPoint(p);
@@ -95,12 +127,13 @@ export function useBodyWeight() {
     },
     [repo, refresh],
   );
-  return { points: repo.getBodyWeight(), addPoint: add, version };
+  return { points, addPoint: add };
 }
 
 /* --------------------- Прогресс: рабочие веса --------------------- */
 export function useExerciseProgress() {
   const { repo, version, refresh } = useRepository();
+  const points = useStored(() => repo.getExerciseProgress(), version);
   const add = useCallback(
     (p: ExerciseProgressPoint) => {
       repo.addExerciseProgressPoint(p);
@@ -108,13 +141,13 @@ export function useExerciseProgress() {
     },
     [repo, refresh],
   );
-  return { points: repo.getExerciseProgress(), addPoint: add, version };
+  return { points, addPoint: add };
 }
 
 /* ------------------------------- Чат ------------------------------ */
 export function useChat() {
   const { repo, version, refresh } = useRepository();
-  const messages = repo.getChat();
+  const messages = useStored(() => repo.getChat(), version);
   const save = useCallback(
     (m: ChatMessage[]) => {
       repo.saveChat(m);
@@ -122,5 +155,5 @@ export function useChat() {
     },
     [repo, refresh],
   );
-  return { messages, saveMessages: save, version };
+  return { messages, saveMessages: save };
 }

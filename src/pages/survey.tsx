@@ -59,15 +59,21 @@ export default function SurveyPage() {
   const { profile, saveProfile } = useProfile();
   const { setProgram } = useCurrentProgram(); // hooks — на верхнем уровне
 
-  // Локальное состояние формы. Инициализируем из сохранённой анкеты.
+  // Локальное состояние формы. Инициализируем пустой.
   const [form, setForm] = useState<UserProfile>(EMPTY);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [hydrated, setHydrated] = useState(false);
 
+  // Загружаем сохранённую анкету ОДИН раз после монтирования на клиенте.
+  // Раньше тут был бесконечный цикл: profile = новый объект каждый рендер.
   useEffect(() => {
-    if (profile) setForm(profile);
+    if (!hydrated && profile) {
+      setForm(profile);
+    }
+    setHydrated(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profile]);
+  }, [profile, hydrated]);
 
   // Универсальный setter для примитивных полей.
   function set<K extends keyof UserProfile>(key: K, value: UserProfile[K]) {

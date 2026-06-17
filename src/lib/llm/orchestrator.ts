@@ -96,10 +96,20 @@ function buildProviders(): Map<ProviderName, LLMProvider> {
 }
 
 function resolvePreferredProvider(): ProviderName {
-  const raw = (process.env.LLM_PROVIDER ?? 'mock').toLowerCase().trim();
+  // 1. Явно указанный провайдер имеет высший приоритет.
+  const raw = (process.env.LLM_PROVIDER ?? '').toLowerCase().trim();
   if (raw === 'groq' || raw === 'openai' || raw === 'gemini' || raw === 'mock') {
     return raw;
   }
+
+  // 2. Если LLM_PROVIDER не задан — автоопределение по наличию ключа.
+  //    Это спасает от частой ошибки деплоя: ключ вставили, а провайдер
+  //    забыли указать, и оркестратор молча уходит в mock.
+  if (process.env.GROQ_API_KEY) return 'groq';
+  if (process.env.OPENAI_API_KEY) return 'openai';
+  if (process.env.GEMINI_API_KEY) return 'gemini';
+
+  // 3. Ничего нет — mock.
   return 'mock';
 }
 

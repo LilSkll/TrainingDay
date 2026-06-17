@@ -3,160 +3,766 @@
     "id": "bench_press",
     "name": "Жим лёжа",
     "description": "Лёжа на скамье опусти штангу к груди и выжми вверх. Контролируй движение, не отбивай от груди.",
-    "muscles": ["грудь", "трицепс", "передние дельты"],
+    "muscles": [
+      "грудь",
+      "трицепс",
+      "передние дельты"
+    ],
     "image": "/images/exercises/bench_press.svg",
-    "requiredEquipment": ["barbell"]
+    "requiredEquipment": [
+      "barbell"
+    ]
   },
   {
     "id": "squat",
     "name": "Приседания со штангой",
     "description": "Гриф на спине, стопы на ширине плеч. Опускайся до параллели бедра с полом, спина прямая.",
-    "muscles": ["квадрицепсы", "ягодицы", "кор"],
+    "muscles": [
+      "квадрицепсы",
+      "ягодицы",
+      "кор"
+    ],
     "image": "/images/exercises/squat.svg",
-    "requiredEquipment": ["barbell"]
+    "requiredEquipment": [
+      "barbell"
+    ]
   },
   {
     "id": "deadlift",
     "name": "Становая тяга",
     "description": "Гриф на полу, хват на ширине плеч. Поднимай за счёт разгибания ног и спины одновременно.",
-    "muscles": ["спина", "ягодицы", "задняя поверхность бедра"],
+    "muscles": [
+      "спина",
+      "ягодицы",
+      "задняя поверхность бедра"
+    ],
     "image": "/images/exercises/deadlift.svg",
-    "requiredEquipment": ["barbell"]
+    "requiredEquipment": [
+      "barbell"
+    ]
   },
   {
     "id": "overhead_press",
     "name": "Армейский жим",
     "description": "Жим штанги/гантелей стоя над головой. Ягодицы напряжены, прогиб в пояснице минимален.",
-    "muscles": ["плечи", "трицепс", "кор"],
+    "muscles": [
+      "плечи",
+      "трицепс",
+      "кор"
+    ],
     "image": "/images/exercises/overhead_press.svg",
-    "requiredEquipment": ["barbell"]
+    "requiredEquipment": [
+      "barbell"
+    ]
   },
   {
     "id": "pull_ups",
     "name": "Подтягивания",
     "description": "Хват чуть шире плеч. Поднимайся за счёт сведения лопаток, подбородок выше перекладины.",
-    "muscles": ["спина", "бицепс"],
+    "muscles": [
+      "спина",
+      "бицепс"
+    ],
     "image": "/images/exercises/pull_ups.svg",
-    "requiredEquipment": ["pull_up_bar"]
+    "requiredEquipment": [
+      "pull_up_bar"
+    ]
   },
   {
     "id": "barbell_row",
     "name": "Тяга штанги в наклоне",
     "description": "Наклон корпуса ~45°, тяни гриф к низу живота, сводя лопатки.",
-    "muscles": ["спина", "задние дельты", "бицепс"],
+    "muscles": [
+      "спина",
+      "задние дельты",
+      "бицепс"
+    ],
     "image": "/images/exercises/barbell_row.svg",
-    "requiredEquipment": ["barbell"]
+    "requiredEquipment": [
+      "barbell"
+    ]
   },
   {
     "id": "dumbbell_curl",
     "name": "Подъём гантелей на бицепс",
     "description": "Стоя, подъём гантелей с супинацией. Локти прижаты, без раскачки корпусом.",
-    "muscles": ["бицепс"],
+    "muscles": [
+      "бицепс"
+    ],
     "image": "/images/exercises/dumbbell_curl.svg",
-    "requiredEquipment": ["dumbbells"]
+    "requiredEquipment": [
+      "dumbbells"
+    ]
   },
   {
     "id": "dumbbell_row",
     "name": "Тяга гантели в наклоне",
     "description": "Одной рукой и коленом опирайся на скамью, тянем гантель к поясу.",
-    "muscles": ["спина", "бицепс"],
+    "muscles": [
+      "спина",
+      "бицепс"
+    ],
     "image": "/images/exercises/dumbbell_row.svg",
-    "requiredEquipment": ["dumbbells"]
+    "requiredEquipment": [
+      "dumbbells"
+    ]
   },
   {
     "id": "goblet_squat",
     "name": "Гоблет-присед с гантелью",
     "description": "Гантель у груди, приседаем с прямой спиной. Отлично для дома и новичков.",
-    "muscles": ["квадрицепсы", "ягодицы", "кор"],
+    "muscles": [
+      "квадрицепсы",
+      "ягодицы",
+      "кор"
+    ],
     "image": "/images/exercises/goblet_squat.svg",
-    "requiredEquipment": ["dumbbells"]
+    "requiredEquipment": [
+      "dumbbells"
+    ]
   },
   {
     "id": "dumbbell_press_floor",
     "name": "Жим гантелей лёжа на полу",
     "description": "Лёжа на полу, жим гантелей вверх. Подходит для домашних тренировок без скамьи.",
-    "muscles": ["грудь", "трицепс"],
+    "muscles": [
+      "грудь",
+      "трицепс"
+    ],
     "image": "/images/exercises/dumbbell_press_floor.svg",
-    "requiredEquipment": ["dumbbells"]
+    "requiredEquipment": [
+      "dumbbells"
+    ]
   },
   {
     "id": "lateral_raise",
     "name": "Разведения гантелей в стороны",
     "description": "Подъём гантелей через стороны до уровня плеч. Без рывков.",
-    "muscles": ["средние дельты"],
+    "muscles": [
+      "средние дельты"
+    ],
     "image": "/images/exercises/lateral_raise.svg",
-    "requiredEquipment": ["dumbbells"]
+    "requiredEquipment": [
+      "dumbbells"
+    ]
   },
   {
     "id": "lunges",
     "name": "Выпады",
     "description": "Шаг вперёд и опускание таза. Можно с гантелями или со своим весом.",
-    "muscles": ["квадрицепсы", "ягодицы"],
+    "muscles": [
+      "квадрицепсы",
+      "ягодицы"
+    ],
     "image": "/images/exercises/lunges.svg",
-    "requiredEquipment": ["dumbbells", "none"]
+    "requiredEquipment": [
+      "dumbbells",
+      "none"
+    ]
   },
   {
     "id": "plank",
     "name": "Планка",
     "description": "Упор на предплечья, тело в прямой линии. Напряги пресс и ягодицы.",
-    "muscles": ["кор"],
+    "muscles": [
+      "кор"
+    ],
     "image": "/images/exercises/plank.svg",
-    "requiredEquipment": ["none"]
+    "requiredEquipment": [
+      "none"
+    ]
   },
   {
     "id": "push_ups",
     "name": "Отжимания",
     "description": "Руки чуть шире плеч, опускай грудь к полу, корпус прямой.",
-    "muscles": ["грудь", "трицепс", "кор"],
+    "muscles": [
+      "грудь",
+      "трицепс",
+      "кор"
+    ],
     "image": "/images/exercises/push_ups.svg",
-    "requiredEquipment": ["none"]
+    "requiredEquipment": [
+      "none"
+    ]
   },
   {
     "id": "bodyweight_squat",
     "name": "Приседания со своим весом",
     "description": "Присед без отягощения, спина прямая, колени по направлению стоп.",
-    "muscles": ["квадрицепсы", "ягодицы"],
+    "muscles": [
+      "квадрицепсы",
+      "ягодицы"
+    ],
     "image": "/images/exercises/bodyweight_squat.svg",
-    "requiredEquipment": ["none"]
+    "requiredEquipment": [
+      "none"
+    ]
   },
   {
     "id": "band_rows",
     "name": "Тяга эспандера/резинки сидя",
     "description": "Сидя, резинка вокруг стоп, тянем к поясу, сводя лопатки.",
-    "muscles": ["спина", "бицепс"],
+    "muscles": [
+      "спина",
+      "бицепс"
+    ],
     "image": "/images/exercises/band_rows.svg",
-    "requiredEquipment": ["resistance_bands"]
+    "requiredEquipment": [
+      "resistance_bands"
+    ]
   },
   {
     "id": "band_chest_press",
     "name": "Жим резинки от груди",
     "description": "Резинка за спиной, выжимаем руки вперёд. Хорошая альтернатива жиму дома.",
-    "muscles": ["грудь", "трицепс"],
+    "muscles": [
+      "грудь",
+      "трицепс"
+    ],
     "image": "/images/exercises/band_chest_press.svg",
-    "requiredEquipment": ["resistance_bands"]
+    "requiredEquipment": [
+      "resistance_bands"
+    ]
   },
   {
     "id": "glute_bridge",
     "name": "Ягодичный мостик",
     "description": "Лёжа на спине, подъём таза за счёт ягодиц. Можно с гантелью на бёдрах.",
-    "muscles": ["ягодицы", "задняя поверхность бедра"],
+    "muscles": [
+      "ягодицы",
+      "задняя поверхность бедра"
+    ],
     "image": "/images/exercises/glute_bridge.svg",
-    "requiredEquipment": ["dumbbells", "none"]
+    "requiredEquipment": [
+      "dumbbells",
+      "none"
+    ]
   },
   {
     "id": "romanian_deadlift",
     "name": "Румынская тяга",
     "description": "Наклон со штангой/гантелями на чуть согнутых ногах, растягиваем заднюю поверхность бедра.",
-    "muscles": ["задняя поверхность бедра", "ягодицы", "спина"],
+    "muscles": [
+      "задняя поверхность бедра",
+      "ягодицы",
+      "спина"
+    ],
     "image": "/images/exercises/romanian_deadlift.svg",
-    "requiredEquipment": ["barbell", "dumbbells"]
+    "requiredEquipment": [
+      "barbell",
+      "dumbbells"
+    ]
   },
   {
     "id": "tricep_extension_band",
     "name": "Разгибания на трицепс с резинкой",
     "description": "Резинка сверху, разгибаем руки в локтях, локти прижаты.",
-    "muscles": ["трицепс"],
+    "muscles": [
+      "трицепс"
+    ],
     "image": "/images/exercises/tricep_extension_band.svg",
-    "requiredEquipment": ["resistance_bands"]
+    "requiredEquipment": [
+      "resistance_bands"
+    ]
+  },
+  {
+    "id": "incline_bench_press",
+    "name": "Жим лёжа на наклонной скамье",
+    "description": "Угол скамьи 30-45°. Акцент на верхнюю часть грудных мышц.",
+    "muscles": [
+      "грудь",
+      "трицепс",
+      "передние дельты"
+    ],
+    "image": "/images/exercises/incline_bench_press.svg",
+    "requiredEquipment": [
+      "barbell",
+      "dumbbells"
+    ]
+  },
+  {
+    "id": "dumbbell_fly",
+    "name": "Разведения гантелей лёжа",
+    "description": "Лёжа на скамье, разведение гантелей в стороны с чуть согнутыми локтями.",
+    "muscles": [
+      "грудь"
+    ],
+    "image": "/images/exercises/dumbbell_fly.svg",
+    "requiredEquipment": [
+      "dumbbells"
+    ]
+  },
+  {
+    "id": "diamond_push_ups",
+    "name": "Отжимания домиком",
+    "description": "Ладони близко друг к другу под грудью. Акцент на трицепс.",
+    "muscles": [
+      "трицепс",
+      "грудь"
+    ],
+    "image": "/images/exercises/diamond_push_ups.svg",
+    "requiredEquipment": [
+      "none"
+    ]
+  },
+  {
+    "id": "front_squat",
+    "name": "Фронтальные приседания",
+    "description": "Гриф спереди на плечах. Больше акцент на квадрицепсы и кор.",
+    "muscles": [
+      "квадрицепсы",
+      "кор",
+      "ягодицы"
+    ],
+    "image": "/images/exercises/front_squat.svg",
+    "requiredEquipment": [
+      "barbell"
+    ]
+  },
+  {
+    "id": "bulgarian_split_squat",
+    "name": "Болгарские сплит-приседания",
+    "description": "Задняя нога на возвышенности, приседаем на передней.",
+    "muscles": [
+      "квадрицепсы",
+      "ягодицы"
+    ],
+    "image": "/images/exercises/bulgarian_split_squat.svg",
+    "requiredEquipment": [
+      "dumbbells",
+      "none"
+    ]
+  },
+  {
+    "id": "leg_press",
+    "name": "Жим ногами в тренажёре",
+    "description": "Сидя в тренажёре, толкай платформу ногами.",
+    "muscles": [
+      "квадрицепсы",
+      "ягодицы"
+    ],
+    "image": "/images/exercises/leg_press.svg",
+    "requiredEquipment": [
+      "barbell"
+    ]
+  },
+  {
+    "id": "leg_extension",
+    "name": "Разгибания ног в тренажёре",
+    "description": "Сидя, разгибание голени. Изоляция на квадрицепс.",
+    "muscles": [
+      "квадрицепсы"
+    ],
+    "image": "/images/exercises/leg_extension.svg",
+    "requiredEquipment": [
+      "barbell"
+    ]
+  },
+  {
+    "id": "leg_curl",
+    "name": "Сгибания ног в тренажёре",
+    "description": "Сгибание голени лёжа или сидя.",
+    "muscles": [
+      "задняя поверхность бедра"
+    ],
+    "image": "/images/exercises/leg_curl.svg",
+    "requiredEquipment": [
+      "barbell"
+    ]
+  },
+  {
+    "id": "sumo_deadlift",
+    "name": "Становая тяга сумо",
+    "description": "Широкая постановка ног, хват между коленями.",
+    "muscles": [
+      "ягодицы",
+      "задняя поверхность бедра",
+      "квадрицепсы"
+    ],
+    "image": "/images/exercises/sumo_deadlift.svg",
+    "requiredEquipment": [
+      "barbell"
+    ]
+  },
+  {
+    "id": "hip_thrust",
+    "name": "Ягодичный мостик со штангой",
+    "description": "Лопатки на скамье, штанга на бёдрах, подъём таза.",
+    "muscles": [
+      "ягодицы",
+      "задняя поверхность бедра"
+    ],
+    "image": "/images/exercises/hip_thrust.svg",
+    "requiredEquipment": [
+      "barbell"
+    ]
+  },
+  {
+    "id": "calf_raise",
+    "name": "Подъёмы на носки",
+    "description": "Подъём на носки стоя.",
+    "muscles": [
+      "икры"
+    ],
+    "image": "/images/exercises/calf_raise.svg",
+    "requiredEquipment": [
+      "barbell",
+      "dumbbells",
+      "none"
+    ]
+  },
+  {
+    "id": "step_up",
+    "name": "Зашагивания на скамью",
+    "description": "Зашагивание на возвышенность с гантелями.",
+    "muscles": [
+      "квадрицепсы",
+      "ягодицы"
+    ],
+    "image": "/images/exercises/step_up.svg",
+    "requiredEquipment": [
+      "dumbbells",
+      "none"
+    ]
+  },
+  {
+    "id": "chin_ups",
+    "name": "Подтягивания обратным хватом",
+    "description": "Ладони к себе. Больше акцент на бицепс.",
+    "muscles": [
+      "спина",
+      "бицепс"
+    ],
+    "image": "/images/exercises/chin_ups.svg",
+    "requiredEquipment": [
+      "pull_up_bar"
+    ]
+  },
+  {
+    "id": "lat_pulldown",
+    "name": "Тяга верхнего блока",
+    "description": "Тяга рукояти к груди. Альтернатива подтягиваниям.",
+    "muscles": [
+      "спина",
+      "бицепс"
+    ],
+    "image": "/images/exercises/lat_pulldown.svg",
+    "requiredEquipment": [
+      "barbell"
+    ]
+  },
+  {
+    "id": "seated_cable_row",
+    "name": "Тяга нижнего блока сидя",
+    "description": "Сидя, тяга рукояти к поясу.",
+    "muscles": [
+      "спина",
+      "бицепс"
+    ],
+    "image": "/images/exercises/seated_cable_row.svg",
+    "requiredEquipment": [
+      "barbell"
+    ]
+  },
+  {
+    "id": "superman",
+    "name": "Супермен",
+    "description": "Лёжа на животе, одновременный подъём рук и ног.",
+    "muscles": [
+      "спина",
+      "ягодицы"
+    ],
+    "image": "/images/exercises/superman.svg",
+    "requiredEquipment": [
+      "none"
+    ]
+  },
+  {
+    "id": "dumbbell_shoulder_press",
+    "name": "Жим гантелей сидя",
+    "description": "Сидя с опорой, жим гантелей вверх.",
+    "muscles": [
+      "плечи",
+      "трицепс"
+    ],
+    "image": "/images/exercises/dumbbell_shoulder_press.svg",
+    "requiredEquipment": [
+      "dumbbells"
+    ]
+  },
+  {
+    "id": "front_raise",
+    "name": "Подъём гантелей перед собой",
+    "description": "Подъём гантелей перед собой до уровня плеч.",
+    "muscles": [
+      "передние дельты"
+    ],
+    "image": "/images/exercises/front_raise.svg",
+    "requiredEquipment": [
+      "dumbbells"
+    ]
+  },
+  {
+    "id": "face_pull",
+    "name": "Тяга к лицу (face pull)",
+    "description": "Тяга каната/резинки к лицу, локти вверх.",
+    "muscles": [
+      "задние дельты",
+      "вращательная манжета"
+    ],
+    "image": "/images/exercises/face_pull.svg",
+    "requiredEquipment": [
+      "resistance_bands",
+      "barbell"
+    ]
+  },
+  {
+    "id": "reverse_fly",
+    "name": "Обратные разведения",
+    "description": "В наклоне разведение гантелей. Изоляция задней дельты.",
+    "muscles": [
+      "задние дельты",
+      "спина"
+    ],
+    "image": "/images/exercises/reverse_fly.svg",
+    "requiredEquipment": [
+      "dumbbells"
+    ]
+  },
+  {
+    "id": "barbell_curl",
+    "name": "Подъём штанги на бицепс",
+    "description": "Стоя, хват снизу, подъём штанги к груди.",
+    "muscles": [
+      "бицепс"
+    ],
+    "image": "/images/exercises/barbell_curl.svg",
+    "requiredEquipment": [
+      "barbell"
+    ]
+  },
+  {
+    "id": "hammer_curl",
+    "name": "Молотки",
+    "description": "Подъём гантелей нейтральным хватом.",
+    "muscles": [
+      "бицепс",
+      "предплечье"
+    ],
+    "image": "/images/exercises/hammer_curl.svg",
+    "requiredEquipment": [
+      "dumbbells"
+    ]
+  },
+  {
+    "id": "band_curl",
+    "name": "Сгибания на бицепс с резинкой",
+    "description": "Стоя на резинке, сгибание рук.",
+    "muscles": [
+      "бицепс"
+    ],
+    "image": "/images/exercises/band_curl.svg",
+    "requiredEquipment": [
+      "resistance_bands"
+    ]
+  },
+  {
+    "id": "tricep_pushdown",
+    "name": "Разгибания на трицепс у блока",
+    "description": "Стоя, разгибание рук вниз с канатом.",
+    "muscles": [
+      "трицепс"
+    ],
+    "image": "/images/exercises/tricep_pushdown.svg",
+    "requiredEquipment": [
+      "barbell"
+    ]
+  },
+  {
+    "id": "overhead_tricep_extension",
+    "name": "Французский жим с гантелью",
+    "description": "Гантель за головой, разгибание рук.",
+    "muscles": [
+      "трицепс"
+    ],
+    "image": "/images/exercises/overhead_tricep_extension.svg",
+    "requiredEquipment": [
+      "dumbbells"
+    ]
+  },
+  {
+    "id": "close_grip_bench",
+    "name": "Жим лёжа узким хватом",
+    "description": "Хват уже плеч. Перенос нагрузки на трицепс.",
+    "muscles": [
+      "трицепс",
+      "грудь"
+    ],
+    "image": "/images/exercises/close_grip_bench.svg",
+    "requiredEquipment": [
+      "barbell"
+    ]
+  },
+  {
+    "id": "wrist_curl",
+    "name": "Сгибания кистей",
+    "description": "Сгибание кистей со штангой/гантелью.",
+    "muscles": [
+      "предплечье"
+    ],
+    "image": "/images/exercises/wrist_curl.svg",
+    "requiredEquipment": [
+      "barbell",
+      "dumbbells"
+    ]
+  },
+  {
+    "id": "farmer_walk",
+    "name": "Прогулка фермера",
+    "description": "Ходьба с тяжёлыми гантелями в руках.",
+    "muscles": [
+      "предплечье",
+      "кор",
+      "плечи"
+    ],
+    "image": "/images/exercises/farmer_walk.svg",
+    "requiredEquipment": [
+      "dumbbells"
+    ]
+  },
+  {
+    "id": "side_plank",
+    "name": "Боковая планка",
+    "description": "Упор на одно предплечье, тело в линии.",
+    "muscles": [
+      "кор",
+      "косые мышцы"
+    ],
+    "image": "/images/exercises/side_plank.svg",
+    "requiredEquipment": [
+      "none"
+    ]
+  },
+  {
+    "id": "hanging_leg_raise",
+    "name": "Подъём ног в висе",
+    "description": "В висе на турнике подъём прямых ног.",
+    "muscles": [
+      "кор",
+      "сгибатели бедра"
+    ],
+    "image": "/images/exercises/hanging_leg_raise.svg",
+    "requiredEquipment": [
+      "pull_up_bar"
+    ]
+  },
+  {
+    "id": "crunches",
+    "name": "Скручивания",
+    "description": "Лёжа на спине, подъём лопаток.",
+    "muscles": [
+      "кор"
+    ],
+    "image": "/images/exercises/crunches.svg",
+    "requiredEquipment": [
+      "none"
+    ]
+  },
+  {
+    "id": "russian_twist",
+    "name": "Русский твист",
+    "description": "Сидя с наклоном назад, повороты корпуса.",
+    "muscles": [
+      "кор",
+      "косые мышцы"
+    ],
+    "image": "/images/exercises/russian_twist.svg",
+    "requiredEquipment": [
+      "dumbbells",
+      "none"
+    ]
+  },
+  {
+    "id": "mountain_climbers",
+    "name": "Альпинист",
+    "description": "В упоре лёжа поочерёдно подтягивай колени к груди.",
+    "muscles": [
+      "кор",
+      "плечи",
+      "кардио"
+    ],
+    "image": "/images/exercises/mountain_climbers.svg",
+    "requiredEquipment": [
+      "none"
+    ]
+  },
+  {
+    "id": "burpees",
+    "name": "Берпи",
+    "description": "Из стойки упор присев, отжимание, выпрыгивание.",
+    "muscles": [
+      "кардио",
+      "кор",
+      "грудь",
+      "ноги"
+    ],
+    "image": "/images/exercises/burpees.svg",
+    "requiredEquipment": [
+      "none"
+    ]
+  },
+  {
+    "id": "jumping_jacks",
+    "name": "Прыжки звездой",
+    "description": "Прыжки с разведением рук и ног.",
+    "muscles": [
+      "кардио"
+    ],
+    "image": "/images/exercises/jumping_jacks.svg",
+    "requiredEquipment": [
+      "none"
+    ]
+  },
+  {
+    "id": "high_knees",
+    "name": "Бег на месте с высоким подниманием бедра",
+    "description": "Бег на месте, колени до уровня пояса.",
+    "muscles": [
+      "кардио",
+      "ноги"
+    ],
+    "image": "/images/exercises/high_knees.svg",
+    "requiredEquipment": [
+      "none"
+    ]
+  },
+  {
+    "id": "box_jump",
+    "name": "Запрыгивания на тумбу",
+    "description": "Запрыгивание на тумбу двумя ногами.",
+    "muscles": [
+      "квадрицепсы",
+      "ягодицы",
+      "икры"
+    ],
+    "image": "/images/exercises/box_jump.svg",
+    "requiredEquipment": [
+      "none"
+    ]
+  },
+  {
+    "id": "kettlebell_swing",
+    "name": "Махи гирей",
+    "description": "Махи гирей между ног за счёт разгибания бёдер.",
+    "muscles": [
+      "ягодицы",
+      "задняя поверхность бедра",
+      "кор"
+    ],
+    "image": "/images/exercises/kettlebell_swing.svg",
+    "requiredEquipment": [
+      "dumbbells"
+    ]
   }
 ]

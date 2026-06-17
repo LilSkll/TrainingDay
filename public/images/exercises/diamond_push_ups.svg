@@ -1,13 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300" role="img" aria-label="Жим резинки от груди">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300" role="img" aria-label="Отжимания домиком">
   <defs>
-    <linearGradient id="bg-band_chest_press" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="bg-diamond_push_ups" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#eef2ff"/>
       <stop offset="1" stop-color="#e0e7ff"/>
     </linearGradient>
   </defs>
-  <rect width="400" height="300" fill="url(#bg-band_chest_press)"/>
+  <rect width="400" height="300" fill="url(#bg-diamond_push_ups)"/>
   <g opacity="0.9"><circle cx="200" cy="85" r="20" fill="#4f46e5"/><path d="M200 108 L200 185" stroke="#6366f1" stroke-width="14" stroke-linecap="round"/><path d="M200 130 L150 150 M200 130 L250 150 M200 185 L165 245 M200 185 L235 245" stroke="#6366f1" stroke-width="12" stroke-linecap="round" fill="none"/></g>
-  <g transform="translate(305,45)" fill="none" stroke="#4f46e5" stroke-width="4"><path d="M-18 12 Q0 -14 18 12"/></g>
-  <text x="20" y="282" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="#1e1b4b">Жим резинки от груди</text>
+  <g transform="translate(305,45)" fill="#4f46e5"><path d="M2 -14 L-8 4 L0 4 L-2 14 L8 -4 L0 -4 Z"/></g>
+  <text x="20" y="282" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="#1e1b4b">Отжимания домиком</text>
   <text x="380" y="282" text-anchor="end" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#4f46e5" opacity="0.7">CHEST</text>
 </svg>
