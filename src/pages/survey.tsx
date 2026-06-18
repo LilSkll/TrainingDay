@@ -70,6 +70,12 @@ export default function SurveyPage() {
   useEffect(() => {
     if (!hydrated && profile) {
       setForm(profile);
+      // Синхронизируем строковые draft-значения числовых полей.
+      setNumDraft({
+        age: String(profile.age),
+        heightCm: String(profile.heightCm),
+        weightKg: String(profile.weightKg),
+      });
     }
     setHydrated(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,18 +86,64 @@ export default function SurveyPage() {
     setForm((f) => ({ ...f, [key]: value }));
   }
 
+  /**
+   * Числовые поля храним ОТДЕЛЬНО как строки во время ввода.
+   *  Причина: если хранить Number в форме, то при очистке поля
+   *  Number("") = 0, и ноль «застревает» — приходится двигать курсор.
+   *  Строки позволяют свободно редактировать (включая пустое значение),
+   *  а в число конвертируем только при отправке.
+   */
+  const [numDraft, setNumDraft] = useState({
+    age: String(form.age),
+    heightCm: String(form.heightCm),
+    weightKg: String(form.weightKg),
+  });
+
+  // Обновление числового поля: пишем строку в draft, а число — в форму
+  // (если введено корректное число; иначе оставляем предыдущее).
+  function setNumField(key: 'age' | 'heightCm' | 'weightKg', raw: string) {
+    // Разрешаем пустую строку и значение с минусом/точкой на конце —
+    // пользователь может быть в процессе ввода.
+    setNumDraft((d) => ({ ...d, [key]: raw }));
+    const parsed = Number(raw);
+    if (raw !== '' && !Number.isNaN(parsed)) {
+      set(key as keyof UserProfile, parsed as never);
+    }
+  }
+
   async function handleSubmit() {
     setError(null);
+
+    // Финальная валидация числовых полей перед отправкой.
+    const finalAge = Number(numDraft.age);
+    const finalHeight = Number(numDraft.heightCm);
+    const finalWeight = Number(numDraft.weightKg);
+    if (
+      !Number.isFinite(finalAge) || finalAge < 10 || finalAge > 100 ||
+      !Number.isFinite(finalHeight) || finalHeight < 100 || finalHeight > 250 ||
+      !Number.isFinite(finalWeight) || finalWeight < 30 || finalWeight > 300
+    ) {
+      setError('Проверьте поля: возраст (10–100), рост (100–250 см), вес (30–300 кг).');
+      return;
+    }
+
+    const finalForm: UserProfile = {
+      ...form,
+      age: finalAge,
+      heightCm: finalHeight,
+      weightKg: finalWeight,
+    };
+    setForm(finalForm);
     setLoading(true);
     // Сохраняем анкету локально ДО генерации — даже при ошибке LLM
     // пользователь не потеряет введённые данные.
-    saveProfile(form);
+    saveProfile(finalForm);
 
     try {
       const res = await fetch('/api/generate-program', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ profile: form }),
+        body: JSON.stringify({ profile: finalForm }),
       });
       if (!res.ok) {
         const data = await res.json().catch(() => null);
@@ -133,9 +185,9 @@ export default function SurveyPage() {
                   fullWidth
                   label="Возраст"
                   type="number"
-                  value={form.age}
-                  onChange={(e) => set('age', Number(e.target.value))}
-                  inputProps={{ min: 10, max: 100 }}
+                  value={numDraft.age}
+                  onChange={(e) => setNumField('age', e.target.value)}
+                  inputProps={{ min: 10, max: 100, inputMode: 'numeric' }}
                 />
               </Grid>
               <Grid item xs={6} sm={4}>
@@ -143,9 +195,9 @@ export default function SurveyPage() {
                   fullWidth
                   label="Рост, см"
                   type="number"
-                  value={form.heightCm}
-                  onChange={(e) => set('heightCm', Number(e.target.value))}
-                  inputProps={{ min: 100, max: 250 }}
+                  value={numDraft.heightCm}
+                  onChange={(e) => setNumField('heightCm', e.target.value)}
+                  inputProps={{ min: 100, max: 250, inputMode: 'numeric' }}
                 />
               </Grid>
               <Grid item xs={12} sm={4}>
@@ -153,9 +205,9 @@ export default function SurveyPage() {
                   fullWidth
                   label="Вес, кг"
                   type="number"
-                  value={form.weightKg}
-                  onChange={(e) => set('weightKg', Number(e.target.value))}
-                  inputProps={{ min: 30, max: 300 }}
+                  value={numDraft.weightKg}
+                  onChange={(e) => setNumField('weightKg', e.target.value)}
+                  inputProps={{ min: 30, max: 300, inputMode: 'numeric' }}
                 />
               </Grid>
               <Grid item xs={12}>

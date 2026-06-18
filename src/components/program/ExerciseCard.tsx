@@ -22,6 +22,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { useState } from 'react';
 import ExerciseDetailModal from '@/components/common/ExerciseDetailModal';
 import ExerciseImage from '@/components/common/ExerciseImage';
+import YoutubeButtons from '@/components/common/YoutubeButtons';
 import { formatRest } from '@/lib/constants';
 import { getExerciseById } from '@/lib/exercises/service';
 import { useFavorites } from '@/hooks/useStorage';
@@ -104,6 +105,11 @@ export default function ExerciseCard({ entry, index }: Props) {
                   ))}
                 </Stack>
               )}
+
+              {/* Быстрые YouTube-поиски: техника / ошибки / разминка / новичкам */}
+              <Box sx={{ mt: 1 }}>
+                <YoutubeButtons exerciseName={entry.name} variant="compact" size="small" />
+              </Box>
 
               {entry.technique && (
                 <>

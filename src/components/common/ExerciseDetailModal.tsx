@@ -19,7 +19,6 @@
 import CloseIcon from '@mui/icons-material/Close';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
-import YouTubeIcon from '@mui/icons-material/YouTube';
 import {
   Box,
   Button,
@@ -34,6 +33,7 @@ import {
 } from '@mui/material';
 import type { ReactNode } from 'react';
 import ExerciseImage from '@/components/common/ExerciseImage';
+import YoutubeButtons from '@/components/common/YoutubeButtons';
 import { useFavorites } from '@/hooks/useStorage';
 import type { Exercise } from '@/lib/types';
 
@@ -49,11 +49,6 @@ interface Props {
 }
 
 /** Строит поисковый URL на YouTube по названию упражнения. */
-function youtubeUrl(name: string, query?: string): string {
-  const q = encodeURIComponent(query || `${name} техника выполнения`);
-  return `https://www.youtube.com/results?search_query=${q}`;
-}
-
 export default function ExerciseDetailModal({
   exercise,
   fallbackName,
@@ -123,17 +118,11 @@ export default function ExerciseDetailModal({
                   {fav ? 'В избранном' : 'В избранное'}
                 </Button>
               )}
-              <Button
-                size="small"
-                variant="outlined"
-                color="error"
-                startIcon={<YouTubeIcon />}
-                onClick={() => window.open(youtubeUrl(name, exercise?.youtubeQuery), '_blank')}
-              >
-                Видео
-              </Button>
             </Stack>
           </Stack>
+
+          {/* 4 целевых YouTube-поиска: техника / ошибки / разминка / новичкам */}
+          <YoutubeButtons exerciseName={name} variant="full" />
 
           {description && (
             <Typography variant="body2" color="text.secondary">

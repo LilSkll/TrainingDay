@@ -25,6 +25,7 @@ import {
 import { useMemo, useState } from 'react';
 import ExerciseDetailModal from '@/components/common/ExerciseDetailModal';
 import ExerciseImage from '@/components/common/ExerciseImage';
+import YoutubeButtons from '@/components/common/YoutubeButtons';
 import PageHeader from '@/components/common/PageHeader';
 import PageShell from '@/components/layout/PageShell';
 import { EQUIPMENT_LABELS } from '@/lib/constants';
@@ -160,6 +161,10 @@ export default function LibraryPage() {
                           sx={{ mr: 0.5, mb: 0.5 }}
                         />
                       ))}
+                    </Box>
+                    {/* Быстрые YouTube-поиски (не открывают модалку) */}
+                    <Box onClick={(e) => e.stopPropagation()} sx={{ mt: 1 }}>
+                      <YoutubeButtons exerciseName={ex.name} variant="compact" size="small" />
                     </Box>
                   </CardContent>
                 </CardActionArea>
