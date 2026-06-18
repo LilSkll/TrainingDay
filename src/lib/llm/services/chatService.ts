@@ -14,6 +14,7 @@ import {
 } from '../../constants';
 import { getOrchestrator } from '../orchestrator';
 import { ASSISTANT_SYSTEM_PROMPT } from '../prompts';
+import { OFFTOPIC_REPLY, checkOffTopic } from '../guard';
 
 /** Сколько последних реплик держим в контексте, чтобы не раздувать токены. */
 const MAX_HISTORY = 10;
@@ -31,6 +32,20 @@ export interface ChatArgs {
 
 export async function chat(args: ChatArgs): Promise<ChatMessage> {
   const { history, message, profile, programSummary } = args;
+
+  // Серверный off-topic guard: перехватываем явно нерелевантные запросы
+  // ДО обращения к LLM. Гарантирует отказ + экономит токены/время.
+  const guard = checkOffTopic(message);
+  if (guard.blocked) {
+    console.log(`[chat] offtopic blocked: ${guard.reason}`);
+    return {
+      id: createId(),
+      role: 'assistant',
+      content: OFFTOPIC_REPLY,
+      createdAt: new Date().toISOString(),
+    };
+  }
+
   const orchestrator = getOrchestrator();
 
   // Системное сообщение: базовый промпт + краткий профиль + план.
