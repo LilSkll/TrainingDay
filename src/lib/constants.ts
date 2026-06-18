@@ -7,6 +7,8 @@ import type {
   ExperienceLevel,
   FitnessGoal,
   Gender,
+  SplitType,
+  WorkoutDuration,
   WorkoutPlace,
 } from './types';
 
@@ -57,7 +59,28 @@ export const EQUIPMENT_LABELS: Record<Equipment, string> = {
   barbell: 'Штанга',
   pull_up_bar: 'Турник',
   resistance_bands: 'Резинки',
+  cable_machine: 'Кроссовер / блоки',
+  machines: 'Тренажёры',
+  kettlebell: 'Гиря',
   none: 'Нет оборудования',
+};
+
+/** Длительность тренировки. */
+export const DURATION_LABELS: Record<WorkoutDuration, string> = {
+  30: '30 мин',
+  45: '45 мин',
+  60: '60 мин',
+  75: '75 мин',
+  90: '90 мин',
+};
+
+/** Способы разбиения программы по дням. */
+export const SPLIT_LABELS: Record<SplitType, string> = {
+  full_body: 'Всё тело (Full body)',
+  upper_lower: 'Верх / Низ',
+  ppl: 'Push / Pull / Legs',
+  bro_split: 'По одной группе в день',
+  auto: 'Подобрать автоматически',
 };
 
 /** Длительность отдыха в секундах → короткая подпись. */

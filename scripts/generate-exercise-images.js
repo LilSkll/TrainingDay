@@ -125,6 +125,9 @@ function equipmentIcon(ex, color) {
   const eq = ex.requiredEquipment || [];
   if (eq.includes('barbell')) return `<g transform="translate(300,40) rotate(-25)" fill="${color}"><rect x="-26" y="-6" width="52" height="12" rx="3"/><rect x="-34" y="-12" width="9" height="24" rx="2"/><rect x="25" y="-12" width="9" height="24" rx="2"/></g>`;
   if (eq.includes('dumbbells')) return `<g transform="translate(305,45) rotate(-20)" fill="${color}"><rect x="-22" y="-5" width="44" height="10" rx="3"/><rect x="-29" y="-11" width="8" height="22" rx="2"/><rect x="21" y="-11" width="8" height="22" rx="2"/></g>`;
+  if (eq.includes('kettlebell')) return `<g transform="translate(310,48)" fill="${color}"><path d="M-6 -14 a6 6 0 0 0 12 0"/><rect x="-10" y="-6" width="20" height="22" rx="9"/></g>`;
+  if (eq.includes('cable_machine')) return `<g transform="translate(308,46)" fill="none" stroke="${color}" stroke-width="3"><circle cx="0" cy="0" r="9"/><path d="M0 9 L0 22 M-7 22 L7 22"/></g>`;
+  if (eq.includes('machines')) return `<g transform="translate(310,46)" fill="${color}"><rect x="-12" y="-10" width="24" height="20" rx="3" fill="none" stroke="${color}" stroke-width="3"/><circle cx="-5" cy="0" r="2"/><circle cx="5" cy="0" r="2"/></g>`;
   if (eq.includes('resistance_bands')) return `<g transform="translate(305,45)" fill="none" stroke="${color}" stroke-width="4"><path d="M-18 12 Q0 -14 18 12"/></g>`;
   if (eq.includes('pull_up_bar')) return `<g transform="translate(300,40)" fill="${color}"><rect x="-26" y="-3" width="52" height="6" rx="3"/></g>`;
   return `<g transform="translate(305,45)" fill="${color}"><path d="M2 -14 L-8 4 L0 4 L-2 14 L8 -4 L0 -4 Z"/></g>`;

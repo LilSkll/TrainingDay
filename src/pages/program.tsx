@@ -22,6 +22,7 @@ import PageHeader, { HeaderButton } from '@/components/common/PageHeader';
 import PageShell from '@/components/layout/PageShell';
 import ExerciseCard from '@/components/program/ExerciseCard';
 import { useCurrentProgram } from '@/hooks/useStorage';
+import { DURATION_LABELS, SPLIT_LABELS } from '@/lib/constants';
 import { downloadPdf, downloadTxt } from '@/lib/export/programExport';
 
 export default function ProgramPage() {
@@ -92,6 +93,27 @@ export default function ProgramPage() {
           variant="outlined"
         />
         <Chip label={`Дней в плане: ${program.days.length}`} variant="outlined" />
+        {program.profileSnapshot.workoutDuration && (
+          <Chip
+            label={`Длительность: ${DURATION_LABELS[program.profileSnapshot.workoutDuration]}`}
+            variant="outlined"
+          />
+        )}
+        {program.profileSnapshot.split && program.profileSnapshot.split !== 'auto' && (
+          <Chip
+            label={`Сплит: ${SPLIT_LABELS[program.profileSnapshot.split]}`}
+            variant="outlined"
+          />
+        )}
+        {program.profileSnapshot.sleepHours !== undefined && (
+          <Chip
+            label={`Сон: ${program.profileSnapshot.sleepHours} ч`}
+            variant="outlined"
+          />
+        )}
+        {program.profileSnapshot.stressLevel !== undefined && program.profileSnapshot.stressLevel >= 4 && (
+          <Chip label={`Стресс: ${program.profileSnapshot.stressLevel}/5`} variant="outlined" color="warning" />
+        )}
         <Chip
           label={`Источник: ${program.provider}`}
           variant="outlined"

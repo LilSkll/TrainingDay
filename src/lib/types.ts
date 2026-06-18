@@ -27,7 +27,22 @@ export type Equipment =
   | 'barbell'
   | 'pull_up_bar'
   | 'resistance_bands'
+  | 'cable_machine' // кроссовер / блочные тренажёры
+  | 'machines' // тренажёры вообще (пек-дек, Смита, гакк и т.д.)
+  | 'kettlebell' // гиря
   | 'none';
+
+/** Длительность тренировки в минутах — влияет на объём программы. */
+export type WorkoutDuration = 30 | 45 | 60 | 75 | 90;
+
+/**
+ * Способ разбиения программы по дням. Влияет на структуру:
+ *  - full_body — всё тело каждый день;
+ *  - upper_lower — верх/низ чередуются;
+ *  - ppl — push/pull/legs;
+ *  - bro_split — одна группа мышц в день.
+ */
+export type SplitType = 'full_body' | 'upper_lower' | 'ppl' | 'bro_split' | 'auto';
 
 /**
  * Полная анкета пользователя. Хранится в LocalStorage,
@@ -45,6 +60,15 @@ export interface UserProfile {
   equipment: Equipment[];
   injuries: string;
   notes: string;
+  /** Новые поля персонализации (опциональны — старые анкеты не сломаются). */
+  /** Длительность тренировки в минутах. */
+  workoutDuration?: WorkoutDuration;
+  /** Предпочитаемый сплит. */
+  split?: SplitType;
+  /** Средняя продолжительность сна в часах (влияет на восстановление). */
+  sleepHours?: number;
+  /** Уровень стресса 1-5 (влияет на объём/интенсивность). */
+  stressLevel?: 1 | 2 | 3 | 4 | 5;
   /** ISO-дата создания/обновления анкеты. */
   updatedAt: string;
 }

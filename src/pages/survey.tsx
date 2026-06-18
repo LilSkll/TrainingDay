@@ -23,18 +23,22 @@ import PageShell from '@/components/layout/PageShell';
 import { MultiPillSelect, default as PillSelect } from '@/components/common/PillSelect';
 import { useCurrentProgram, useProfile } from '@/hooks/useStorage';
 import {
+  DURATION_LABELS,
   EQUIPMENT_LABELS,
   EXPERIENCE_LABELS,
   GENDER_LABELS,
   GOAL_LABELS,
   PLACE_LABELS,
+  SPLIT_LABELS,
 } from '@/lib/constants';
 import type {
   Equipment,
   ExperienceLevel,
   FitnessGoal,
   Gender,
+  SplitType,
   UserProfile,
+  WorkoutDuration,
   WorkoutPlace,
 } from '@/lib/types';
 
@@ -51,6 +55,10 @@ const EMPTY: UserProfile = {
   equipment: ['dumbbells'],
   injuries: '',
   notes: '',
+  workoutDuration: 60,
+  split: 'auto',
+  sleepHours: 7,
+  stressLevel: 3,
   updatedAt: new Date().toISOString(),
 };
 
@@ -313,6 +321,80 @@ export default function SurveyPage() {
                     label: EQUIPMENT_LABELS[eq],
                   }))}
                 />
+              </Box>
+            </Stack>
+          </CardContent>
+        </Card>
+
+        {/* --- Дополнительная персонализация --- */}
+        <Card>
+          <CardContent>
+            <Typography variant="subtitle1" fontWeight={800} sx={{ mb: 2 }}>
+              Дополнительная персонализация
+            </Typography>
+            <Stack spacing={2}>
+              <Box>
+                <Typography variant="body2" sx={{ mb: 1 }}>
+                  Длительность тренировки
+                </Typography>
+                <PillSelect<WorkoutDuration>
+                  value={(form.workoutDuration ?? 60) as WorkoutDuration}
+                  onChange={(v) => set('workoutDuration', v)}
+                  options={(Object.keys(DURATION_LABELS) as unknown as WorkoutDuration[]).map(
+                    (d) => ({ value: d, label: DURATION_LABELS[d] }),
+                  )}
+                  columns={5}
+                />
+              </Box>
+              <Divider />
+              <Box>
+                <Typography variant="body2" sx={{ mb: 1 }}>
+                  Предпочитаемый сплит
+                </Typography>
+                <PillSelect<SplitType>
+                  value={(form.split ?? 'auto') as SplitType}
+                  onChange={(v) => set('split', v)}
+                  options={(Object.keys(SPLIT_LABELS) as SplitType[]).map((s) => ({
+                    value: s,
+                    label: SPLIT_LABELS[s],
+                  }))}
+                />
+              </Box>
+              <Divider />
+              <Box>
+                <Typography variant="body2" sx={{ mb: 1 }}>
+                  Сон и восстановление
+                </Typography>
+                <Grid container spacing={2} alignItems="center">
+                  <Grid item xs={12} sm={6}>
+                    <Typography variant="caption" color="text.secondary">
+                      Средняя продолжительность сна
+                    </Typography>
+                    <PillSelect<number>
+                      value={form.sleepHours ?? 7}
+                      onChange={(v) => set('sleepHours', v)}
+                      options={[5, 6, 7, 8, 9].map((h) => ({ value: h, label: `${h} ч` }))}
+                      columns={5}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <Typography variant="caption" color="text.secondary">
+                      Уровень стресса (1 — низкий, 5 — высокий)
+                    </Typography>
+                    <PillSelect<number>
+                      value={form.stressLevel ?? 3}
+                      onChange={(v) => set('stressLevel', v as UserProfile['stressLevel'])}
+                      options={[1, 2, 3, 4, 5].map((s) => ({
+                        value: s,
+                        label: `${s}${s <= 2 ? ' 🟢' : s === 3 ? ' 🟡' : ' 🔴'}`,
+                      }))}
+                      columns={5}
+                    />
+                  </Grid>
+                </Grid>
+                <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 1 }}>
+                  Эти параметры влияют на объём и интенсивность программы.
+                </Typography>
               </Box>
             </Stack>
           </CardContent>

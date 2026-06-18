@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300" role="img" aria-label="Толчок гири (clean &amp; press)">
+  <defs>
+    <linearGradient id="bg-kettlebellcleanpress" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eef2ff"/>
+      <stop offset="1" stop-color="#e0e7ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg-kettlebellcleanpress)"/>
+  <g opacity="0.92"><circle cx="200" cy="85" r="20" fill="#4f46e5"/><path d="M200 108 L200 185" stroke="#6366f1" stroke-width="14" stroke-linecap="round"/><g><animateTransform attributeName="transform" type="rotate" values="0 200 125; 6 200 125; 0 200 125" dur="1.6s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/><path d="M200 125 L135 125 M200 125 L265 125 M200 185 L170 250 M200 185 L230 250" stroke="#6366f1" stroke-width="12" stroke-linecap="round" fill="none"/></g></g>
+  <g transform="translate(310,48)" fill="#4f46e5"><path d="M-6 -14 a6 6 0 0 0 12 0"/><rect x="-10" y="-6" width="20" height="22" rx="9"/></g>
+  <text x="20" y="282" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="#1e1b4b">Толчок гири (clean &amp; press)</text>
+  <text x="380" y="282" text-anchor="end" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#4f46e5" opacity="0.7">SHOULDERS</text>
+</svg>
