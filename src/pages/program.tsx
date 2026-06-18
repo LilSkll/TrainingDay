@@ -5,15 +5,12 @@
  *  Кнопки экспорта: TXT и PDF.
  */
 import {
-  Alert,
   Box,
   Button,
   Card,
   CardContent,
   Chip,
-  CircularProgress,
   Divider,
-  Grid,
   Stack,
   Typography,
 } from '@mui/material';
@@ -102,32 +99,36 @@ export default function ProgramPage() {
         />
       </Stack>
 
-      <Grid container spacing={3}>
+      <Stack spacing={4}>
         {program.days.map((day) => (
-          <Grid item xs={12} key={`day-${day.day}`}>
-            <Box>
-              <Typography variant="h6" fontWeight={800} sx={{ mb: 1.5 }}>
-                День {day.day}. {day.title}
-                {day.focus && (
-                  <Typography
-                    component="span"
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ ml: 1.5 }}
-                  >
-                    · {day.focus}
-                  </Typography>
-                )}
+          <Card key={`day-${day.day}`} variant="outlined" sx={{ p: { xs: 2, md: 3 } }}>
+            {/* Заголовок дня */}
+            <Stack
+              direction={{ xs: 'column', sm: 'row' }}
+              justifyContent="space-between"
+              alignItems={{ sm: 'baseline' }}
+              sx={{ mb: 3 }}
+            >
+              <Typography variant="h6" fontWeight={800}>
+                День {day.day}
+                {day.title && day.title !== `День ${day.day}` ? `. ${day.title}` : ''}
               </Typography>
-              <Stack spacing={2}>
-                {day.exercises.map((ex, i) => (
-                  <ExerciseCard key={`${day.day}-${i}`} entry={ex} index={i} />
-                ))}
-              </Stack>
-            </Box>
-          </Grid>
+              {day.focus && (
+                <Typography variant="body2" color="text.secondary" fontWeight={600}>
+                  Фокус: {day.focus}
+                </Typography>
+              )}
+            </Stack>
+
+            {/* Упражнения дня с увеличенными интервалами */}
+            <Stack spacing={2.5}>
+              {day.exercises.map((ex, i) => (
+                <ExerciseCard key={`${day.day}-${i}`} entry={ex} index={i} />
+              ))}
+            </Stack>
+          </Card>
         ))}
-      </Grid>
+      </Stack>
 
       <Divider sx={{ my: 4 }} />
 

@@ -48,8 +48,8 @@ export default function ExerciseCard({ entry, index }: Props) {
   return (
     <>
       <Card variant="outlined">
-        <CardContent>
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+        <CardContent sx={{ p: { xs: 2, sm: 2.5 }, '&:last-child': { pb: { xs: 2, sm: 2.5 } } }}>
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2.5}>
             {/* Картинка (кликабельна → модалка) */}
             <Box sx={{ flex: { sm: '0 0 200px' }, width: { xs: '100%', sm: 200 } }}>
               <ExerciseImage
@@ -106,9 +106,9 @@ export default function ExerciseCard({ entry, index }: Props) {
                 </Stack>
               )}
 
-              {/* Быстрые YouTube-поиски: техника / ошибки / разминка / новичкам */}
+              {/* Быстрый YouTube-поиск: как выполнить правильно */}
               <Box sx={{ mt: 1 }}>
-                <YoutubeButtons exerciseName={entry.name} variant="compact" size="small" />
+                <YoutubeButtons exerciseName={entry.name} variant="compact" />
               </Box>
 
               {entry.technique && (

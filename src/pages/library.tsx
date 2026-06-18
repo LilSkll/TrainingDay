@@ -162,9 +162,9 @@ export default function LibraryPage() {
                         />
                       ))}
                     </Box>
-                    {/* Быстрые YouTube-поиски (не открывают модалку) */}
+                    {/* Быстрый YouTube-поиск (не открывает модалку) */}
                     <Box onClick={(e) => e.stopPropagation()} sx={{ mt: 1 }}>
-                      <YoutubeButtons exerciseName={ex.name} variant="compact" size="small" />
+                      <YoutubeButtons exerciseName={ex.name} variant="compact" />
                     </Box>
                   </CardContent>
                 </CardActionArea>
