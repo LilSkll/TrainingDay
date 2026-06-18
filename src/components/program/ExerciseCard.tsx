@@ -157,17 +157,23 @@ function MetricChip({ label, value }: { label: string; value: string }) {
   return (
     <Box
       sx={{
-        px: 1.25,
-        py: 0.5,
+        px: 1.5,
+        py: 0.75,
         borderRadius: 2,
         bgcolor: (t) => t.palette.primary.main,
         color: '#fff',
         textAlign: 'center',
         minWidth: 64,
+        flex: '1 1 auto',
       }}
     >
-      <Box sx={{ fontSize: 11, opacity: 0.85 }}>{label}</Box>
-      <Box sx={{ fontSize: 15, fontWeight: 800 }}>{value}</Box>
+      {/* Минимум 13px для читаемости на мобильных; было 11 — слишком мелко. */}
+      <Box sx={{ fontSize: { xs: 13, sm: 12 }, opacity: 0.9, lineHeight: 1.1 }}>
+        {label}
+      </Box>
+      <Box sx={{ fontSize: { xs: 16, sm: 15 }, fontWeight: 800, lineHeight: 1.2 }}>
+        {value}
+      </Box>
     </Box>
   );
 }

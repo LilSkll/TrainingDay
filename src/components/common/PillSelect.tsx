@@ -1,18 +1,44 @@
 /**
- * Выбор одного значения из набора — в виде горизонтального ряда
- * «таблеток» (как в Apple Fitness / Notion).
- *  generic по типу значения T.
+ * Выбор одного значения из набора — в виде ряда «таблеток»
+ * (как в Apple Fitness / Notion). generic по типу значения T.
+ *
+ *  ВАЖНО по читаемости: текст в таблетках переносится на 2 строки,
+ *  фиксированной высоты нет — длинные подписи вроде «Набор мышечной массы»
+ *  больше не обрезаются многоточием.
  */
 import { Box, Chip } from '@mui/material';
-import { Fragment } from 'react';
 
 interface Props<T extends string | number> {
   value: T;
   options: Array<{ value: T; label: string }>;
   onChange: (v: T) => void;
-  /** Сколько колонок на узких экранах (по умолчанию авто). */
+  /** Сколько колонок (по умолчанию авто: 2 на мобильном, auto-fit на широких). */
   columns?: number;
 }
+
+/** Общие стили таблетки, чтобы не дублировать между Pill/MultiPill. */
+const CHIP_SX = {
+  justifyContent: 'flex-start',
+  // height: 'auto' + minHeight вместо фиксированных 48px → текст переносится.
+  height: 'auto',
+  minHeight: 48,
+  py: 1.25,
+  px: 1.5,
+  borderRadius: 3,
+  fontSize: '0.95rem',
+  lineHeight: 1.25,
+  fontWeight: 700,
+  // Разрешаем перенос текста внутри таблетки (вместо nowrap + truncation).
+  '& .MuiChip-label': {
+    px: 0,
+    whiteSpace: 'normal',
+    textOverflow: 'clip',
+    overflow: 'visible',
+    display: 'block',
+    textAlign: 'center',
+    width: '100%',
+  },
+} as const;
 
 export default function PillSelect<T extends string | number>({
   value,
@@ -33,24 +59,19 @@ export default function PillSelect<T extends string | number>({
       {options.map((opt) => {
         const selected = opt.value === value;
         return (
-          <Fragment key={String(opt.value)}>
-            {/* Chip-Toggle через клик. ButtonBase был бы избыточен. */}
-            <Chip
-              label={opt.label}
-              clickable
-              color={selected ? 'primary' : 'default'}
-              variant={selected ? 'filled' : 'outlined'}
-              onClick={() => onChange(opt.value)}
-              sx={{
-                justifyContent: 'flex-start',
-                height: 48,
-                fontSize: '0.95rem',
-                fontWeight: selected ? 700 : 500,
-                px: 1.5,
-                '& .MuiChip-label': { px: 0 },
-              }}
-            />
-          </Fragment>
+          <Chip
+            key={String(opt.value)}
+            label={opt.label}
+            clickable
+            color={selected ? 'primary' : 'default'}
+            variant={selected ? 'filled' : 'outlined'}
+            onClick={() => onChange(opt.value)}
+            sx={{
+              ...CHIP_SX,
+              // Невыбранные — чуть менее жирные.
+              fontWeight: selected ? 700 : 500,
+            }}
+          />
         );
       })}
     </Box>
@@ -94,12 +115,8 @@ export function MultiPillSelect<T extends string | number>({
             variant={selected ? 'filled' : 'outlined'}
             onClick={() => toggle(opt.value)}
             sx={{
-              justifyContent: 'flex-start',
-              height: 48,
-              fontSize: '0.95rem',
+              ...CHIP_SX,
               fontWeight: selected ? 700 : 500,
-              px: 1.5,
-              '& .MuiChip-label': { px: 0 },
             }}
           />
         );
